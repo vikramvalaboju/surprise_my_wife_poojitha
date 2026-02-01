@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Small Surprise ❤️</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 {
+      color: #ff4d6d;
+    }
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+    .no {
+      background-color: #adb5bd;
+      color: white;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hey Love ❤️</h1>
+    <p>Do you know how special you are to me?</p>
+    <button class="yes" onclick="yesClicked()">Yes 😊</button>
+    <button class="no" onclick="noClicked()">No 🙈</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    function yesClicked() {
+      document.getElementById('message').innerHTML = "Aww 🥰 You are my happiest place, my favorite person, and my biggest blessing 💖";
+    }
+
+    function noClicked() {
+      document.getElementById('message').innerHTML = "Then let me tell you 😌 You mean the world to me, more than words can ever explain 💕";
+    }
+  </script>
+</body>
+</html>
