@@ -47,12 +47,33 @@
       font-size: 18px;
       color: #333;
     }
+    #catGif {
+      display: none;
+      margin-top: 20px;
+      width: 250px;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="message"></h2>
+  <br>
+
+  <img
+    id="catGif"
+    src="https://media.tenor.com/bvXwJ4I19ZQAAAAi/cat-cat-meme.gif"
+    alt="Cat kissing gif"
+  />
+
+</body>
+</html>
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Hey Love ❤️</h1>
-    <p>Do you know how special you are to me?</p>
+    <h1>My Kuchulu baby 🥰</h1>
+    <p>Do you Love me?</p>
     <button class="yes" onclick="yesClicked()">Yes 😊</button>
     <button class="no" onclick="noClicked()">No 🙈</button>
     <div id="message"></div>
@@ -60,11 +81,13 @@
 
   <script>
     function yesClicked() {
-      document.getElementById('message').innerHTML = "Aww 🥰 You are my happiest place, my favorite person, and my biggest blessing 💖";
-    }
+      document.getElementById('message').innerHTML =
+        "Aww 🥰 muua muua muuah....... 💖";
 
+      document.getElementById('catGif').style.display = "block";
+    }
     function noClicked() {
-      document.getElementById('message').innerHTML = "Then let me tell you 😌 You mean the world to me, more than words can ever explain 💕";
+      document.getElementById('message').innerHTML = "Not Accepted 😌 💕";
     }
   </script>
 </body>
