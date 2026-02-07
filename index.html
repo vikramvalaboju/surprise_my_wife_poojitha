@@ -48,8 +48,8 @@
     .yes {
       background-color: #ff4d6d;
       color: white;
-      z-index: 2;
       position: relative;
+      z-index: 2;
     }
 
     .no {
@@ -58,19 +58,7 @@
       position: absolute;
       left: 55%;
       top: 0;
-    }
-
-    /* SHAKE ANIMATION */
-    .shake {
-      animation: shake 0.3s;
-    }
-
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
+      transition: all 0.15s ease;
     }
 
     #message {
@@ -91,54 +79,39 @@
 <body>
 
   <div class="card">
-    <h1>My Kuchulu baby 🥰</h1>
-    <p>Do you love me?</p>
+    <h1>My Srimathi 🥰</h1>
+    <p>I Love you so much..!</p>
+    <p>Do you love me? ❤️</p>
 
     <div class="btn-group">
       <button class="yes" onclick="yesClicked()">Yes 😊</button>
-      <button class="no" id="noBtn">No 🙈</button>
+      <button class="no" id="noBtn" onclick="noClicked()">No 🙈</button>
     </div>
 
     <div id="message"></div>
 
     <img
-      id="catGif"
-      src="https://media.tenor.com/bvXwJ4I19ZQAAAAi/cat-cat-meme.gif"
-      alt="Cat kiss"
+      id="loveGif"
+      src="https://media.tenor.com/i9yvlqt2aYoAAAAj/peach-goma-peach-and-goma.gif"
+      alt="Love gif"
     />
+
+    <!-- AUDIO (same folder as HTML) -->
+    <audio id="loveSong" src="love_song.mp3"></audio>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const card = document.querySelector(".card");
+    const song = document.getElementById("loveSong");
 
-    let escapeCount = 0;
-    let transformed = false;
+    const START_TIME = 34; // seconds
+    const END_TIME = 64;   // seconds
+    let stopTimer = null;
 
-    noBtn.addEventListener("mouseenter", handleNoMove);
-    noBtn.addEventListener("touchstart", handleNoMove);
-
-    function handleNoMove() {
-      if (transformed) return;
-
-      // SHAKE FIRST
-      noBtn.classList.add("shake");
-      noBtn.innerText = "NO ekkada undhi, pattuko chudham 😜";
-
-      setTimeout(() => {
-        noBtn.classList.remove("shake");
-        moveNoButton();
-      }, 300);
-
-      escapeCount++;
-
-      // FINAL TWIST 😈➡️❤️
-      if (escapeCount >= 5) {
-        setTimeout(() => {
-          transformToYes();
-        }, 400);
-      }
-    }
+    // NO button runs away
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
 
     function moveNoButton() {
       const cardRect = card.getBoundingClientRect();
@@ -154,20 +127,31 @@
       noBtn.style.top = randomY + "px";
     }
 
-  function transformToYes() {
-    transformed = true;
+    // If NO is clicked
+    function noClicked() {
+      document.getElementById("message").innerHTML =
+        "⚠️ Technical issue 😅<br>Please choose <b>Yes</b> ❤️";
+    }
 
-    noBtn.innerText = "Yes 😍";
-    noBtn.style.backgroundColor = "#ff4d6d";
+    // If YES is clicked ❤️
+    function yesClicked() {
+      document.getElementById("message").innerHTML =
+        "Aww 🥰 muua muua muuah... 💖<br>You chose correct my darling 💕";
 
-    document.getElementById("message").innerHTML =
-      "You chose correct my darling 💖<br><br>Aww 🥰 muua muua muuah... 💖";
+      document.getElementById("loveGif").style.display = "block";
 
-    document.getElementById("catGif").style.display = "block";
+      // Play song from 0:34 to 1:04
+      song.pause();
+      song.currentTime = START_TIME;
+      song.play();
 
-    // Stop running
-    noBtn.removeEventListener("mouseenter", handleNoMove);
-  }
+      // Clear previous timer if any
+      if (stopTimer) clearTimeout(stopTimer);
+
+      stopTimer = setTimeout(() => {
+        song.pause();
+      }, (END_TIME - START_TIME) * 1000);
+    }
   </script>
 
 </body>
