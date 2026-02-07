@@ -14,6 +14,7 @@
       justify-content: center;
       align-items: center;
       margin: 0;
+      overflow: hidden;
     }
 
     .card {
@@ -25,6 +26,7 @@
       max-width: 420px;
       width: 90%;
       text-align: center;
+      z-index: 2;
     }
 
     h1 {
@@ -73,6 +75,27 @@
       width: 230px;
       border-radius: 15px;
     }
+
+    /* 💕 HEART CONFETTI */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      color: #ff4d6d;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
@@ -96,7 +119,7 @@
       alt="Love gif"
     />
 
-    <!-- AUDIO (same folder as HTML) -->
+    <!-- 🎶 AUDIO -->
     <audio id="loveSong" src="love_song.mp3"></audio>
   </div>
 
@@ -105,11 +128,12 @@
     const card = document.querySelector(".card");
     const song = document.getElementById("loveSong");
 
-    const START_TIME = 34; // seconds
-    const END_TIME = 64;   // seconds
-    let stopTimer = null;
+    const START_TIME = 34;
+    const END_TIME = 64;
 
-    // NO button runs away
+    let heartInterval = null;
+
+    // NO button escapes
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("touchstart", moveNoButton);
 
@@ -120,37 +144,62 @@
       const maxX = cardRect.width - btnRect.width - 20;
       const maxY = cardRect.height - btnRect.height - 20;
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
-
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
     }
 
-    // If NO is clicked
     function noClicked() {
       document.getElementById("message").innerHTML =
         "⚠️ Technical issue 😅<br>Please choose <b>Yes</b> ❤️";
     }
 
-    // If YES is clicked ❤️
+    // ❤️ YES CLICKED
     function yesClicked() {
       document.getElementById("message").innerHTML =
         "Aww 🥰 muua muua muuah... 💖<br>You chose correct my darling 💕";
 
       document.getElementById("loveGif").style.display = "block";
 
-      // Play song from 0:34 to 1:04
+      playSongWithFade();
+      startHearts(); // 🔁 continuous hearts
+    }
+
+    // 🎶 Fade-in music
+    function playSongWithFade() {
       song.pause();
       song.currentTime = START_TIME;
+      song.volume = 0;
       song.play();
 
-      // Clear previous timer if any
-      if (stopTimer) clearTimeout(stopTimer);
+      let volume = 0;
+      const fade = setInterval(() => {
+        volume += 0.05;
+        if (volume >= 1) {
+          volume = 1;
+          clearInterval(fade);
+        }
+        song.volume = volume;
+      }, 150);
 
-      stopTimer = setTimeout(() => {
+      setTimeout(() => {
         song.pause();
       }, (END_TIME - START_TIME) * 1000);
+    }
+
+    // 💕 CONTINUOUS HEARTS (ONLY CHANGE)
+    function startHearts() {
+      if (heartInterval) return;
+
+      heartInterval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 2 + Math.random() * 2 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }, 300);
     }
   </script>
 
