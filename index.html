@@ -17,7 +17,7 @@
     }
 
     .card {
-      position: relative; /* IMPORTANT */
+      position: relative;
       background: white;
       padding: 40px 30px 60px;
       border-radius: 20px;
@@ -31,14 +31,10 @@
       color: #ff4d6d;
     }
 
-    p {
-      font-size: 18px;
-    }
-
     .btn-group {
       margin-top: 25px;
       position: relative;
-      height: 80px; /* space for No to move */
+      height: 90px;
     }
 
     button {
@@ -52,8 +48,8 @@
     .yes {
       background-color: #ff4d6d;
       color: white;
-      position: relative;
       z-index: 2;
+      position: relative;
     }
 
     .no {
@@ -62,7 +58,19 @@
       position: absolute;
       left: 55%;
       top: 0;
-      transition: all 0.15s ease;
+    }
+
+    /* SHAKE ANIMATION */
+    .shake {
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
     }
 
     #message {
@@ -83,7 +91,7 @@
 <body>
 
   <div class="card">
-    <h1>Hi Srimathi 🥰</h1>
+    <h1>My Kuchulu baby 🥰</h1>
     <p>Do you love me?</p>
 
     <div class="btn-group">
@@ -98,20 +106,39 @@
       src="https://media.tenor.com/bvXwJ4I19ZQAAAAi/cat-cat-meme.gif"
       alt="Cat kiss"
     />
-
-    <img
-      id="teddyCry"
-      src="https://media1.tenor.com/m/7zfJK1SOYxoAAAAC/milk-and-mocha.gif"
-      alt="Teddy cry"
-    />
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const card = document.querySelector(".card");
 
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("touchstart", moveNoButton); // mobile
+    let escapeCount = 0;
+    let transformed = false;
+
+    noBtn.addEventListener("mouseenter", handleNoMove);
+    noBtn.addEventListener("touchstart", handleNoMove);
+
+    function handleNoMove() {
+      if (transformed) return;
+
+      // SHAKE FIRST
+      noBtn.classList.add("shake");
+      noBtn.innerText = "Ayyo tappinchukuntunna 😜";
+
+      setTimeout(() => {
+        noBtn.classList.remove("shake");
+        moveNoButton();
+      }, 300);
+
+      escapeCount++;
+
+      // FINAL TWIST 😈➡️❤️
+      if (escapeCount >= 5) {
+        setTimeout(() => {
+          transformToYes();
+        }, 400);
+      }
+    }
 
     function moveNoButton() {
       const cardRect = card.getBoundingClientRect();
@@ -127,12 +154,20 @@
       noBtn.style.top = randomY + "px";
     }
 
-    function yesClicked() {
-      document.getElementById("message").innerHTML =
-        "Aww 🥰 muua muua muuah... 💖";
-      document.getElementById("catGif").style.display = "block";
-      document.getElementById("teddyCry").style.display = "none";
-    }
+  function transformToYes() {
+    transformed = true;
+
+    noBtn.innerText = "Yes 😍";
+    noBtn.style.backgroundColor = "#ff4d6d";
+
+    document.getElementById("message").innerHTML =
+      "You chose correct my darling 💖<br><br>Aww 🥰 muua muua muuah... 💖";
+
+    document.getElementById("catGif").style.display = "block";
+
+    // Stop running
+    noBtn.removeEventListener("mouseenter", handleNoMove);
+  }
   </script>
 
 </body>
