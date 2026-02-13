@@ -6,15 +6,46 @@
 <title>Poojitha ❤️ My Valentine</title>
 
 <style>
+/* BODY STYLES */
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     font-family: 'Segoe UI', cursive;
     overflow: hidden;
     color: white;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
 }
 
+/* PASSWORD SCREEN */
+#passwordScreen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+}
+
+#passwordInput {
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: none;
+}
+
+#passwordBtn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #ff4d6d;
+    color: white;
+}
+
+/* MAIN PAGE STYLES */
 .center {
     position: absolute;
     inset: 0;
@@ -45,21 +76,13 @@ button {
     gap: 6px;
 }
 
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
-}
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn { background: white; color: #ff4d6d; }
 
-#noBtn {
-    background: white;
-    color: #ff4d6d;
-}
-
-/* 🙈 emoji control */
 .no-emoji {
-    font-size: 0.75em;     /* very small */
+    font-size: 0.75em;
     position: relative;
-    top: 2px;             /* pushes it slightly down */
+    top: 2px;
 }
 
 .card {
@@ -81,7 +104,7 @@ button {
     50% { transform: scale(1.3); }
 }
 
-/* 🌸 FADE + FLOAT PHOTOS */
+/* FADE + FLOAT PHOTOS */
 .photo {
     position: absolute;
     width: 130px;
@@ -106,7 +129,7 @@ button {
     display: none;
 }
 
-/* 💕 FLOATING HEARTS */
+/* FLOATING HEARTS */
 .floating-hearts span {
     position: absolute;
     bottom: -20px;
@@ -120,32 +143,9 @@ button {
     to { transform: translateY(-120vh); }
 }
 
-/* 📱 MOBILE PERFECT */
-@media (max-width: 600px) {
-    h1 { font-size: 1.6em; }
-    h2 { font-size: 1.2em; }
-    .photo { width: 110px; }
-    .buttons { flex-direction: column; }
-}
-</style>
-</head>
-
-<body>
-
-<div class="center" id="question">
-    <h1>Will you be my Valentine? 💖</h1>
-
-    <div class="buttons">
-        <button id="yesBtn">Yes ❤️</button>
-        <button id="noBtn">
-            No <span class="no-emoji">🙈</span>
-        </button>
-    </div>
-</div>
-
-<!-- On-page NO message -->
-<div id="noMessage" style="
-    display:none;
+/* NO MESSAGE */
+#noMessage {
+    display: none;
     position: absolute;
     top: 70%;
     left: 50%;
@@ -157,39 +157,92 @@ button {
     font-size: 1.1em;
     text-align: center;
     backdrop-filter: blur(5px);
-">
-    You don’t have any other option 😐<br>
-    I won’t leave you.<br>
-    CLICK YESSSSS ❤️🔥
+}
+
+/* MOBILE STYLES */
+@media (max-width: 600px) {
+    h1 { font-size: 1.6em; }
+    h2 { font-size: 1.2em; }
+    .photo { width: 110px; }
+    .buttons { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+    <h1>Enter Password to Open 💖</h1>
+    <input type="password" id="passwordInput" placeholder="Your password">
+    <button id="passwordBtn">Enter</button>
+    <p id="passwordError" style="color:red; display:none;">Wrong password! Try again 😅</p>
 </div>
 
-<div class="center card" id="message">
-    <h1>Happy Valentine’s Day 💕</h1>
-    <h2>Minamma ❤️</h2>
-    <div class="heart">❤️</div>
-    <p>
-        Distance may separate us physically, but my heart is always right there with you.
-        You are my happiness, my comfort, and my forever.
-    </p>
-    <p>One day soon, we won’t count miles — we’ll count moments together.</p>
-    <p><i>Forever yours ❤️</i></p>
-</div>
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
 
-<img class="gif" id="loveGif"
-src="https://media1.tenor.com/m/ZIZlu6c-rC8AAAAC/y%C3%AAu.gif">
+    <div class="center" id="question">
+        <h1>Will you be my Valentine? 💖</h1>
+        <div class="buttons">
+            <button id="yesBtn">Yes ❤️</button>
+            <button id="noBtn">No <span class="no-emoji">🙈</span></button>
+        </div>
+    </div>
 
-<audio id="song" src="love_song.mp3"></audio>
+    <div id="noMessage">
+        You don’t have any other option 😐<br>
+        I won’t leave you.<br>
+        CLICK YESSSSS ❤️🔥
+    </div>
 
-<div class="floating-hearts">
-    <span style="left:10%">❤️</span>
-    <span style="left:25%; animation-delay:2s;">💖</span>
-    <span style="left:40%; animation-delay:4s;">❤️</span>
-    <span style="left:55%; animation-delay:1s;">💘</span>
-    <span style="left:70%; animation-delay:3s;">❤️</span>
-    <span style="left:85%; animation-delay:5s;">💖</span>
+    <div class="center card" id="message">
+        <h1>Happy Valentine’s Day 💕</h1>
+        <h2>Minamma ❤️</h2>
+        <div class="heart">❤️</div>
+        <p>
+            Distance may separate us physically, but my heart is always right there with you.
+            You are my happiness, my comfort, and my forever.
+        </p>
+        <p>One day soon, we won’t count miles — we’ll count moments together.</p>
+        <p><i>Forever yours ❤️</i></p>
+    </div>
+
+    <img class="gif" id="loveGif" src="https://media1.tenor.com/m/ZIZlu6c-rC8AAAAC/y%C3%AAu.gif">
+
+    <audio id="song" src="love_song.mp3"></audio>
+
+    <div class="floating-hearts">
+        <span style="left:10%">❤️</span>
+        <span style="left:25%; animation-delay:2s;">💖</span>
+        <span style="left:40%; animation-delay:4s;">❤️</span>
+        <span style="left:55%; animation-delay:1s;">💘</span>
+        <span style="left:70%; animation-delay:3s;">❤️</span>
+        <span style="left:85%; animation-delay:5s;">💖</span>
+    </div>
 </div>
 
 <script>
+// PASSWORD LOGIC
+const passwordScreen = document.getElementById("passwordScreen");
+const mainContent = document.getElementById("mainContent");
+const passwordInput = document.getElementById("passwordInput");
+const passwordBtn = document.getElementById("passwordBtn");
+const passwordError = document.getElementById("passwordError");
+
+// Change this to your desired password
+const correctPassword = "iloveuminamma";
+
+passwordBtn.addEventListener("click", () => {
+    if(passwordInput.value === correctPassword){
+        passwordScreen.style.display = "none";
+        mainContent.style.display = "block";
+    } else {
+        passwordError.style.display = "block";
+        passwordInput.value = "";
+    }
+});
+
+// VALENTINE PAGE SCRIPT
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const song = document.getElementById("song");
@@ -198,37 +251,24 @@ const question = document.getElementById("question");
 const gif = document.getElementById("loveGif");
 const noMessage = document.getElementById("noMessage");
 
-const images = [
-    "photos/img1.jpg","photos/img2.jpg","photos/img3.jpg","photos/img4.jpg",
-    "photos/img5.jpg","photos/img6.jpg","photos/img7.jpg","photos/img8.jpg",
-    "photos/img9.jpg","photos/img10.jpg","photos/img11.jpg","photos/img12.jpg",
-    "photos/img13.jpg","photos/img14.jpg","photos/img15.jpg","photos/img16.jpg",
-    "photos/img17.jpg","photos/img18.jpg","photos/img19.jpg","photos/img20.jpg",
-    "photos/img21.jpg","photos/img22.jpg","photos/img23.jpg","photos/img24.jpg",
-    "photos/img25.jpg","photos/img26.jpg","photos/img27.jpg","photos/img28.jpg",
-    "photos/img29.jpg","photos/img30.jpg"
-];
+const images = [];
+for(let i=1;i<=30;i++){ images.push(`photos/img${i}.jpg`); }
 
 function dodgeNo() {
-    noBtn.style.transform =
-        `translate(${Math.random()*120-60}px, ${Math.random()*120-60}px)`;
+    noBtn.style.transform = `translate(${Math.random()*120-60}px, ${Math.random()*120-60}px)`;
 }
 
-/* 🛑 NO BUTTON BEHAVIOR */
 noBtn.addEventListener("mouseenter", dodgeNo);
 noBtn.addEventListener("touchstart", dodgeNo);
-
 noBtn.addEventListener("click", () => {
-    noMessage.style.display = "block";   // show message instead of alert
+    noMessage.style.display = "block";
     dodgeNo();
 });
 
-/* ✅ YES BUTTON */
 yesBtn.addEventListener("click", () => {
     question.style.display = "none";
     message.style.display = "block";
     gif.style.display = "block";
-
     song.currentTime = 30;
     song.play();
     startPhotos();
