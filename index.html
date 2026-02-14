@@ -110,7 +110,8 @@ button {
     width: 130px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    animation: fadeFloat 5s ease-in-out forwards;
+    opacity: 0;
+    animation: fadeFloat 6s ease-in-out forwards;
 }
 
 @keyframes fadeFloat {
@@ -252,8 +253,14 @@ const gif = document.getElementById("loveGif");
 const noMessage = document.getElementById("noMessage");
 
 const images = [];
-for(let i=1;i<=30;i++){ images.push(`photos/img${i}.jpg`); }
-
+for (let i = 1; i <= 30; i++) {
+    images.push(`photos/img${i}.jpg`);
+}
+/* 🔥 PRELOAD IMAGES (PUT IT RIGHT HERE) */
+images.forEach(src => {
+    const preload = new Image();
+    preload.src = src;
+});
 function dodgeNo() {
     noBtn.style.transform = `translate(${Math.random()*120-60}px, ${Math.random()*120-60}px)`;
 }
@@ -276,14 +283,23 @@ yesBtn.addEventListener("click", () => {
 
 function startPhotos() {
     setInterval(() => {
-        const img = document.createElement("img");
+        const img = new Image();   // important
         img.src = images[Math.floor(Math.random() * images.length)];
         img.className = "photo";
-        img.style.left = Math.random() * (window.innerWidth - 140) + "px";
-        img.style.top = Math.random() * (window.innerHeight - 140) + "px";
-        document.body.appendChild(img);
-        setTimeout(() => img.remove(), 5000);
-    }, 1200);
+
+        img.onload = () => {
+            img.style.left = Math.random() * (window.innerWidth - 140) + "px";
+            img.style.top = Math.random() * (window.innerHeight - 140) + "px";
+            document.body.appendChild(img);
+
+            setTimeout(() => img.remove(), 6000);
+        };
+
+        img.onerror = () => {
+            // silently ignore broken image
+            console.warn("Image failed to load:", img.src);
+        };
+    }, 1800); // slightly slower = more reliable
 }
 </script>
 </body>
